@@ -20,5 +20,5 @@ from saflightsapi.schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api', GraphQLView.as_view(graphiql=True, schema=schema))
+    path('graphql/', GraphQLView.as_view(graphiql=True, schema=schema))
 ]

@@ -1,5 +1,3 @@
-from re import A
-from typing_extensions import Required
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Airport
