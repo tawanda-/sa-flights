@@ -8,6 +8,7 @@ class Airport(models.Model):
     latitude_deg = models.FloatField(blank=True, null=True)
     longitude_deg = models.FloatField(blank=True, null=True)
     elevation = models.IntegerField(blank=True, null=True)
+    image_url = models.URLField
     
     def __str__(self):
         return self.airport_name 
