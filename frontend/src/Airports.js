@@ -10,8 +10,6 @@ function Airports() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  console.log(data.airports);
-
   return (
     <div className="album py-5 bg-light">
       <div className="container">

@@ -26,7 +26,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const customFetch = (uri, options) => {
   const { operationName } = JSON.parse(options.body);
-  return fetch(`${uri}/graphql?${operationName}`, options);
+  return fetch(`${uri}/graphql/?${operationName}`, options);
 };
 
 const client = new ApolloClient({
