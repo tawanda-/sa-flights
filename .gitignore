@@ -1,1 +1,5 @@
 env
+db.sqlite3
+backend/myproject/__pycache__
+backend/saflightsapi/__pycache__
+backend/saflightsapi/migrations/__pycache__
