@@ -1,5 +1,17 @@
 from django.db import models
 
+# airport details
+class Airport(models.Model):
+    iata_code = models.CharField(max_length=25, primary_key = True)
+    name = models.CharField(max_length=250)
+    municipality = models.CharField(max_length=250)
+    latitude_deg = models.FloatField(blank=True, null=True)
+    longitude_deg = models.FloatField(blank=True, null=True)
+    elevation = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.airport_name 
+
 class Flight(models.Model):
     number = models.CharField(max_length=20)
     date = models.DateField(null=False, blank=False)
