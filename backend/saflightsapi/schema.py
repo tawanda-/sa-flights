@@ -1,12 +1,14 @@
-from ast import Num
+import code
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Airport, Flight, FlightDetail
+from .service import getFlights, getAirportFlights
 
 class AirportType(DjangoObjectType):
     class Meta:
         model = Airport
         fields = (
+            'icao_code',
             'iata_code',
             'name',
             'municipality',
@@ -21,20 +23,22 @@ class FlightType(DjangoObjectType):
         model = Flight
         fields = (
             'number',
+            'iata_code',
+            'icao_code',
             'date',
+            'source_airport',
+            'destination_airport',
             'status',
             'airline',
+            'departure',
+            'arrival',
         )
 
 class FlightDetailType(DjangoObjectType):
     class Meta:
         model = FlightDetail
         fields = (
-            'number',
             'status',
-            'airport',
-            'iata',
-            'icao',
             'terminal',
             'gate',
             'baggage',
@@ -49,35 +53,20 @@ class FlightDetailType(DjangoObjectType):
 class Query(graphene.ObjectType):
 
     airports = graphene.List(AirportType)
-    airport = graphene.Field(AirportType, iata_code=graphene.String(required=True))
-
-    flights = graphene.List(FlightType)
-    flight = graphene.Field(FlightType, number=graphene.String(required=True))
-
-    flightDetails = graphene.Field(FlightDetailType, number=graphene.String(required=True))
-        
+    airport = graphene.List(FlightType, icao_code=graphene.String(required=True))
+   
     def resolve_airports(root, info):
         return Airport.objects.all()
 
-    def resolve_airport(root, info, iata_code):
-        try:
-            return Airport.objects.get(iata_code=iata_code)
-        except Airport.DoesNotExist:
-            return None
+    def resolve_airport(root, info, icao_code):
 
-    def resolve_flights(root, info):
-        return Flight.objects.all()
+        if( Flight.objects.all().count() > 0 ):
+            q1 = Flight.objects.filter(source_airport=Airport.objects.get(icao_code=icao_code))
+            q2 = Flight.objects.filter(destination_airport=Airport.objects.get(icao_code=icao_code))
+            q3 = q1.union(q2)
+            return q3
+        else:
+            getAirportFlights(icao_code)
+            return Flight.objects.filter(source_airport=Airport.objects.get(icao_code=icao_code)).filter(destination_airport=Airport.objects.get(icao_code=icao_code))
 
-    def resolve_flight(root, info, number):
-        try:
-            return Flight.objects.get(number=number)
-        except Flight.DoesNotExist:
-            return None
-
-    def resolve_flightDetail(root, info, number):
-        try:
-            return FlightDetailType.objects.get(number=number)
-        except FlightDetail.DoesNotExist:
-            return None
-    
 schema = graphene.Schema(query=Query)
