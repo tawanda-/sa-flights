@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -36,3 +37,11 @@
     transform: rotate(360deg);
   }
 }
+
+.table-top-heading th {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  width: 33%;
+}
+
