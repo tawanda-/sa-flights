@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'saflightsapi',
     'graphene_django',
-    'corsheaders'
+    'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
