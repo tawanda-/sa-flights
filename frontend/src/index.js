@@ -1,54 +1,46 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Airports from "./Airports";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  useQuery,
-  gql,
-  from,
-} from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
+import App from "./App";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import logo from "./logo.jpeg";
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-
-const customFetch = (uri, options) => {
-  const { operationName } = JSON.parse(options.body);
-  return fetch(`${uri}/graphql/?${operationName}`, options);
-};
+//className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
 
 const client = new ApolloClient({
   cache: new InMemoryCache({ addTypename: false }),
-  link: from([
-    errorLink,
-    new HttpLink({customFetch})
-  ]),
+  uri: "http://127.0.0.1:8000/graphql",
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <div>
-      <header>
-        <div className="navbar navbar-light bg-light box-shadow">
-          <div className="container d-flex justify-content-between">
-            <strong>SA Flights Tracker</strong>
-          </div>
-        </div>
-      </header>
-      <Airports />
-    </div>
-  </ApolloProvider>,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <div className="container">
+        <header>
+          <a
+            href="/"
+            className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+          >
+            
+            <h1 className="fw-light text-center text-lg-start mt-4 mb-0">
+              
+            <img
+                src={logo}
+                className="d-inline-block"
+                width={50}
+                height={50}
+              />
+                SA Flight Tracker
+              </h1>
+            
+          </a>
+
+          <hr className="mt-2 mb-4" />
+        </header>
+        <App />
+      </div>
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
