@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'saflightsapi',
     'graphene_django',
     'corsheaders',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
