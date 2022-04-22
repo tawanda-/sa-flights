@@ -1,5 +1,4 @@
-from pyexpat import model
-from unicodedata import category
+from django.contrib import admin
 from django.db import models
 
 class Airport(models.Model):
@@ -80,3 +79,15 @@ class Flight(models.Model):
 
     def __str__(self):
         return '%s %s %s %s' % (self.number, self.airline, self.departure, self.arrival)
+
+class AirportAdmin(admin.ModelAdmin):
+    search_fields = ["icao_code", "iata_code", "city", "country", "name"]
+
+class FlightAdmin(admin.ModelAdmin):
+    search_fields = ["icao_code", "iata_code", "number", "airline", "departure__time_scheduled"]
+
+class ArrivalAdmin(admin.ModelAdmin):
+    search_fields = ["airport__name", "airport__icao_code", "airport__iata_code"]
+
+class DepartureAdmin(admin.ModelAdmin):
+    search_fields = ["airport__name", "airport__icao_code", "airport__iata_code"]
