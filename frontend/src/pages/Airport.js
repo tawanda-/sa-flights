@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation, Link } from "react-router-dom";
 import Flights from "../components/Flights";
-import { getAirportFlights } from "../api";
+import { getFlights } from "../api";
 import Stats from "../components/Stats";
 
 function Airport() {
@@ -17,8 +17,8 @@ function Airport() {
     setTab(e.target.id);
   }
 
-  const { loading, error, data } = useQuery(getAirportFlights, {
-    variables: { icao: id },
+  const { loading, error, data } = useQuery(getFlights, {
+    variables: { search: id },
   });
 
   if (loading) return <p>Loading...</p>;

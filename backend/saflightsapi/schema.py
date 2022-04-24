@@ -145,7 +145,7 @@ class Query(graphene.ObjectType):
         if search:
             airport_query = Q(iata_code=search) | Q(icao_code__icontains=search) | Q(city__icontains=search) | Q(country__icontains=search) | Q(name__icontains=search)
 
-            return Airport.objects.get(airport_query)
+            return Airport.objects.filter(airport_query)
         else:
             return None
     
