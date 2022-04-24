@@ -1,17 +1,17 @@
 import requests
-from datetime import datetime
+import datetime
 
 from .models import Airport, Flight, Departure, Arrival
 
 def getFlightsFromAirport(airport_icao):
-    departure_url = 'http://api.aviationstack.com/v1/flights?access_key=a57327a6a0c5077784a3e234343f0575&dep_icao='+airport_icao
+    departure_url = 'http://api.aviationstack.com/v1/flights?access_key=a46c18b7dcab20f45efb6e592b5fa9c1&dep_icao='+airport_icao
     departures_response = requests.get(departure_url)
     departures_json = departures_response.json()
     saveData(departures_json)
 
 def getFlightsToAirport(airport_icao):
     
-    arrival_url = 'http://api.aviationstack.com/v1/flights?access_key=a57327a6a0c5077784a3e234343f0575&arr_icao='+airport_icao
+    arrival_url = 'http://api.aviationstack.com/v1/flights?access_key=a46c18b7dcab20f45efb6e592b5fa9c1&arr_icao='+airport_icao
     arrivals_response = requests.get(arrival_url)
     arrivals_json = arrivals_response.json()
     saveData(arrivals_json)
@@ -19,6 +19,8 @@ def getFlightsToAirport(airport_icao):
 def saveData(flights):
 
     for flight in flights['data']:
+
+        print(flight['airline']['name'])
 
         try:
 
@@ -65,12 +67,12 @@ def saveData(flights):
             flght.save()
 
         except Exception as er:
-            print(("## Skipped {} -> {} airport not found").format(flight['arrival']['icao'], flight['departure']['icao']))
-
+            print (er)
 
 def formatDate(date_string): 
     date_format = '%Y-%m-%dT%H:%M:%S%z'
-    if(date_string == 'None' or date_string is None or date_string is '' or date_string == 'null' ):
+    if(date_string == 'None' or date_string is None or date_string == '' or date_string == 'null' ):
         return None
     else:
-        return datetime.strptime(date_string ,date_format)
+        utc_date = datetime.datetime.strptime(date_string ,date_format)
+        return utc_date + datetime.timedelta(hours=2)
