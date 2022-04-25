@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const getAirports = gql`
-    query Airports($search: String!){
+    query Airports($search: String){
         airports(search:$search){
             name
             city
@@ -14,8 +14,8 @@ const getAirports = gql`
 `;
 
 const getFlights = gql`
-    query Flights($search: String!){
-        flights(search:$search){
+    query Flights($search: String, $searchone: String, $searchtwo:String){
+        flights(search:$search, searchone:$searchone, searchtwo:$searchtwo){
             number
             iataCode
             icaoCode

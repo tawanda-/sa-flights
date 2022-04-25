@@ -2,11 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import logo from "./logo.jpeg";
-
-//className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+import Search from "./components/Search";
 
 const client = new ApolloClient({
   cache: new InMemoryCache({ addTypename: false }),
@@ -18,27 +16,27 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <div className="container">
         <header>
-          <a
-            href="/"
-            className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-          >
-            
-            <h1 className="fw-light text-center text-lg-start mt-4 mb-0">
-              
-            <img
-                src={logo}
-                className="d-inline-block"
-                width={50}
-                height={50}
-              />
+          <div>
+            <a
+              href="/"
+              className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+            >
+              <h1 className="fw-light text-center text-lg-start mt-4 mb-0">
+                <img
+                  src={logo}
+                  className="d-inline-block"
+                  width={50}
+                  height={50}
+                />
                 SA Flight Tracker
               </h1>
-            
-          </a>
-
+            </a>
+          </div>
           <hr className="mt-2 mb-4" />
         </header>
-        <App />
+        <div>
+          <Search />
+        </div>
       </div>
     </ApolloProvider>
   </BrowserRouter>,
