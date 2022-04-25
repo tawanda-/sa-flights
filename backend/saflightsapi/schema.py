@@ -121,7 +121,6 @@ def stats_resolver(parent, info):
                 longest_arrival_delay = airport['arrival__time_delay__max'] ,
                 longest_departure_delay = airport['departure__time_delay__max'] ,
             )
-        print(x)
         sa_airport_stats_list.append(x)
         
 
@@ -137,7 +136,7 @@ def stats_resolver(parent, info):
 class Query(graphene.ObjectType):
 
     airports = graphene.List(AirportType, search=graphene.String())
-    flights = graphene.List(FlightType, search=graphene.String())
+    flights = graphene.List(FlightType, search=graphene.String(), searchone=graphene.String(), searchtwo=graphene.String())
     aircrafts = graphene.List(AircraftType, aircraft=graphene.String())
     stats = graphene.Field(SAStatsType, resolver=stats_resolver)
 
@@ -147,22 +146,20 @@ class Query(graphene.ObjectType):
 
             return Airport.objects.filter(airport_query)
         else:
-            return None
-    
-    def resolve_flights(root, info, search=None):
+            return Airport.objects.filter(country__icontains='south africa')
+
+    def resolve_flights(root, info, search=None, searchone=None, searchtwo=None):
 
         x = {}
 
+        search_query = Q(number__icontains=search) | Q(iata_code__icontains=search) | Q(icao_code__icontains=search) | Q(status__icontains=search) | Q(airline__icontains=search)
+
+        airport_query = Q(iata_code=search) | Q(icao_code__icontains=search) | Q(city__icontains=search) | Q(country__icontains=search) | Q(name__icontains=search)
+
         if search:
-            search_query = Q(number__icontains=search) | Q(iata_code__icontains=search) | Q(icao_code__icontains=search) | Q(status__icontains=search) | Q(airline__icontains=search)
-
-            x = Flight.objects.filter(search_query)
-            print(x.count())
-        
+            print("search")
+            x = Flight.objects.filter(search_query)        
             if x.count() == 0:
-
-                airport_query = Q(iata_code=search) | Q(icao_code__icontains=search) | Q(city__icontains=search) | Q(country__icontains=search) | Q(name__icontains=search)
-
                 airport = Airport.objects.get(airport_query)
                 departures = Flight.objects.filter(departure__airport=airport)
                 arrivals = Flight.objects.filter(arrival__airport=airport)
@@ -182,6 +179,22 @@ class Query(graphene.ObjectType):
             else:
                 return x
         
-        return None
+        elif searchone or searchtwo: #from airport(name, icao) to airport(name, icao)
+
+            airport_query_one = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(name__icontains=searchone)
+            airport_query_two = Q(iata_code=searchtwo) | Q(icao_code__icontains=searchtwo) | Q(name__icontains=searchtwo)
+
+            sa_airports = Airport.objects.filter(country="south africa")
+  
+            if searchone and searchtwo:
+                return Flight.objects.filter(departure__airport=sa_airports.get(airport_query_one), arrival__airport=sa_airports.get(airport_query_two))
+            elif searchone:
+                return Flight.objects.filter(departure__airport=sa_airports.get(airport_query_one))
+            elif searchtwo:
+                return Flight.objects.filter(arrival__airport=sa_airports.get(airport_query_two))
+            else:
+                return None
+        else:
+            return None
 
 schema = graphene.Schema(query=Query)

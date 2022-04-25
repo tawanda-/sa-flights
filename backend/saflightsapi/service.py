@@ -20,8 +20,6 @@ def saveData(flights):
 
     for flight in flights['data']:
 
-        print(flight['airline']['name'])
-
         try:
 
             dep = Departure(
