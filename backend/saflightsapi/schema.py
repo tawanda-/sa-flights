@@ -1,7 +1,6 @@
-from dataclasses import fields
 import graphene
 from graphene_django import DjangoObjectType
-from .models import Aircraft, Airport, Arrival, Departure, Flight
+from .models import Aircraft, Airport, Flight
 from .service import getFlightsFromAirport, getFlightsToAirport
 from django.db.models import Q, Count, Avg, Max, Min
 
@@ -40,41 +39,22 @@ class FlightType(DjangoObjectType):
             'date',
             'status',
             'airline',
-            'departure',
-            'arrival',
+            'departure_airport',
+            'departure_terminal',
+            'departure_gate',
+            'departure_baggage',
+            'departure_time_delay',
+            'departure_time_scheduled',
+            'departure_time_actual',
+            'arrival_airport',
+            'arrival_terminal',
+            'arrival_gate',
+            'arrival_baggage',
+            'arrival_time_delay',
+            'arrival_time_scheduled',
+            'arrival_time_actual',
         )
 
-class DepartureType(DjangoObjectType):
-    class Meta:
-        model = Departure
-        fields = (
-            'airport',
-            'terminal',
-            'gate',
-            'baggage',
-            'time_delay',
-            'time_scheduled',
-            'time_estimated',
-            'time_actual',
-            'estimated_runway',
-            'actual_runway',
-        )
-
-class ArrivalType(DjangoObjectType):
-    class Meta:
-        model = Arrival
-        fields = (
-            'airport',
-            'terminal',
-            'gate',
-            'baggage',
-            'time_delay',
-            'time_scheduled',
-            'time_estimated',
-            'time_actual',
-            'estimated_runway',
-            'actual_runway',
-        )
 
 class AirportStats(graphene.ObjectType):
     airport = graphene.String()
@@ -88,6 +68,7 @@ class AirportStats(graphene.ObjectType):
     def __str__(self):
         return f"{self.airport}, {self.total_airport_departures}, {self.total_airport_arrivals}, {self.avg_departure_delay}, {self.avg_arrival_delay}, {self.longest_departure_delay}, {self.longest_arrival_delay}"
 
+
 class SAStatsType(graphene.ObjectType):
     total_departures = graphene.Int()
     total_arrivals = graphene.Int()
@@ -99,8 +80,8 @@ class SAStatsType(graphene.ObjectType):
 def stats_resolver(parent, info):
     sa_airports = Airport.objects.filter(country='south africa')
     total_num_airports = sa_airports.count()
-    total_departures = Departure.objects.all().count()
-    total_arrivals = Arrival.objects.all().count()
+    total_departures = 0
+    total_arrivals = 0
 
     sa_aggregates = sa_airports.aggregate(Max('elevation'), Min('elevation'))
     highest_airport = sa_aggregates['elevation__max']*0.3048
@@ -133,12 +114,14 @@ def stats_resolver(parent, info):
         airport_stats = sa_airport_stats_list,
     )
     
+
 class Query(graphene.ObjectType):
 
     airports = graphene.List(AirportType, search=graphene.String())
     flights = graphene.List(FlightType, search=graphene.String(), searchone=graphene.String(), searchtwo=graphene.String())
     aircrafts = graphene.List(AircraftType, aircraft=graphene.String())
     stats = graphene.Field(SAStatsType, resolver=stats_resolver)
+    flght = graphene.List(FlightType, search=graphene.String(), searchone=graphene.String(), searchtwo=graphene.String())
 
     def resolve_airports(root, info, search=None):
         if search:
@@ -150,50 +133,38 @@ class Query(graphene.ObjectType):
 
     def resolve_flights(root, info, search=None, searchone=None, searchtwo=None):
 
-        x = {}
-
-        search_query = Q(number__icontains=search) | Q(iata_code__icontains=search) | Q(icao_code__icontains=search) | Q(status__icontains=search) | Q(airline__icontains=search)
-
-        airport_query = Q(iata_code=search) | Q(icao_code__icontains=search) | Q(city__icontains=search) | Q(country__icontains=search) | Q(name__icontains=search)
+        departure_airport = ""
+        arrival_airport = ""
+        sa_airports = Airport.objects.filter(country="south africa")
 
         if search:
-            print("search")
-            x = Flight.objects.filter(search_query)        
-            if x.count() == 0:
-                airport = Airport.objects.get(airport_query)
-                departures = Flight.objects.filter(departure__airport=airport)
-                arrivals = Flight.objects.filter(arrival__airport=airport)
-
-                y = departures | arrivals
-
-                print(y.count())
-
-                if y.count() < 50:
-
-                    getFlightsFromAirport(airport.icao_code)
-                    getFlightsToAirport(airport.icao_code)
-
-                    return y
-                else:
-                    return y
-            else:
-                return x
-        
-        elif searchone or searchtwo: #from airport(name, icao) to airport(name, icao)
-
-            airport_query_one = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(name__icontains=searchone)
-            airport_query_two = Q(iata_code=searchtwo) | Q(icao_code__icontains=searchtwo) | Q(name__icontains=searchtwo)
-
-            sa_airports = Airport.objects.filter(country="south africa")
-  
-            if searchone and searchtwo:
-                return Flight.objects.filter(departure__airport=sa_airports.get(airport_query_one), arrival__airport=sa_airports.get(airport_query_two))
-            elif searchone:
-                return Flight.objects.filter(departure__airport=sa_airports.get(airport_query_one))
-            elif searchtwo:
-                return Flight.objects.filter(arrival__airport=sa_airports.get(airport_query_two))
-            else:
-                return None
+            search_query = Q(number__icontains=search) | Q(iata_code__icontains=search) | Q(icao_code__icontains=search) | Q(status__icontains=search) | Q(airline__icontains=search)
+            airport_query = Q(iata_code__icontains=search) | Q(icao_code__icontains=search) | Q(city__icontains=search) | Q(country__icontains=search) | Q(name__icontains=search)
+            flights = Flight.objects.filter(search_query)
+            if flights.count() == 0:
+                airports = sa_airports.filter(airport_query)
+                flights = Flight.objects.filter(departure_airport__in=airports) | Flight.objects.filter(arrival_airport__in=airports)
+                if flights.count() == 0 and airports.values().count() != 0:
+                    getFlightsFromAirport(airports.values()[0]['icao_code'])
+                    getFlightsToAirport(airports.values()[0]['icao_code'])
+            return flights
+        elif searchone and searchtwo:
+            airport_query = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(city__icontains=searchone) | Q(country__icontains=searchone) | Q(name__icontains=searchone)
+            arr_airport_query = Q(iata_code=searchtwo) | Q(icao_code__icontains=searchtwo) | Q(city__icontains=searchtwo) | Q(country__icontains=searchtwo) | Q(name__icontains=searchtwo)
+            departure_airport = sa_airports.filter(airport_query)
+            arrival_airport = sa_airports.filter(arr_airport_query)
+            flights = Flight.objects.filter(departure_airport__in=departure_airport).filter(arrival_airport__in = arrival_airport).order_by("departure_time_scheduled")  
+            return flights
+        elif searchone:
+            airport_query = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(city__icontains=searchone) | Q(country__icontains=searchone) | Q(name__icontains=searchone)
+            departure_airport = sa_airports.filter(airport_query)
+            flights = Flight.objects.filter(departure_airport__in=departure_airport).order_by("departure_time_scheduled") 
+            return flights
+        elif searchtwo:
+            arr_airport_query = Q(iata_code=searchtwo) | Q(icao_code__icontains=searchtwo) | Q(city__icontains=searchtwo) | Q(country__icontains=searchtwo) | Q(name__icontains=searchtwo)
+            arrival_airport = sa_airports.filter(country="south africa")
+            flights = Flight.objects.filter(arrival_airport__in=arrival_airport).order_by("arrival_time_scheduled")  
+            return flights
         else:
             return None
 
