@@ -9,6 +9,7 @@ function Search() {
   const [search, setSearch] = useState("");
   const [searchOne, setSearchOne] = useState("");
   const [searchTwo, setSearchTwo] = useState("");
+  const [crumb, setCrumb] = useState("");
 
   function handleItemClick(e) {
     setShowAdvanceSearch(!showAdvanceSearch);
@@ -17,9 +18,11 @@ function Search() {
   function submitSearch(e) {
     switch (e.target.id) {
       case "0":
+        setCrumb(search);
         searchFlights({ variables: { search: search, b: "", c: "" } });
         break;
       case "1":
+        setCrumb(searchOne + " to " + searchTwo);
         searchFlights({
           variables: { search: "", searchone: searchOne, searchtwo: searchTwo },
         });
@@ -118,7 +121,17 @@ function Search() {
       {loading ? (
         <p>Loading ...</p>
       ) : data && data.flights ? (
-        <Flights flights={data.flights} />
+        <div>
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="/">Home</a>
+              </li>
+              <li className="breadcrumb-item active">{crumb}</li>
+            </ol>
+          </nav>
+          <Flights flights={data.flights} />
+        </div>
       ) : (
         <App />
       )}

@@ -1,40 +1,40 @@
 import React from "react";
 import Item from "./Item";
-import Takeoff from "../svg/takeoff.svg";
-import Landing from "../svg/landing.svg";
-import Inflight from "../svg/inflight.svg";
+import Takeoff from "../static/svg/takeoff.svg";
+import Landing from "../static/svg/landing.svg";
+import Inflight from "../static/svg/inflight.svg";
 
 function Flight(props) {
   const d = new Date(props.flight.date);
   const arrival = {
     airline: "",
     number: "",
-    gate: props.flight.arrival.gate
-      ? "Gate: " + props.flight.arrival.gate.toUpperCase()
+    gate: props.flight.arrivalGate
+      ? "Gate: " + props.flight.arrivalGate.toUpperCase()
       : "",
-    terminal: props.flight.arrival.terminal
-      ? "Terminal: " + props.flight.arrival.terminal.toUpperCase()
+    terminal: props.flight.arrivaTerminal
+      ? "Terminal: " + props.flight.arrivalTerminal.toUpperCase()
       : "",
-    name: props.flight.arrival.airport.name.toUpperCase(),
-    city: props.flight.arrival.airport.city.toUpperCase(),
-    country: props.flight.arrival.airport.country.toUpperCase(),
-    timeScheduled: props.flight.arrival.timeScheduled,
+    name: props.flight.arrivalAirport.name?props.flight.arrivalAirport.name.toUpperCase():"",
+    city: props.flight.arrivalAirport.city?props.flight.arrivalAirport.city.toUpperCase():"",
+    country: props.flight.arrivalAirport.country?props.flight.arrivalAirport.country.toUpperCase():"",
+    timeScheduled: props.flight.arrivalTimeScheduled?props.flight.arrivalTimeScheduled:"",
     date: d.toDateString(),
   };
 
   const departure = {
     airline: props.flight.airline.toUpperCase(),
     number: props.flight.iataCode,
-    gate: props.flight.departure.gate
-      ? "Gate: " + props.flight.departure.gate.toUpperCase()
+    gate: props.flight.departureGate
+      ? "Gate: " + props.flight.departureGate.toUpperCase()
       : "",
-    terminal: props.flight.departure.terminal
-      ? "Terminal: " + props.flight.departure.terminal.toUpperCase()
+    terminal: props.flight.departureTerminal
+      ? "Terminal: " + props.flight.departureTerminal.toUpperCase()
       : "",
-    name: props.flight.departure.airport.name.toUpperCase(),
-    city: props.flight.departure.airport.city.toUpperCase(),
-    country: props.flight.departure.airport.country.toUpperCase(),
-    timeScheduled: props.flight.departure.timeScheduled,
+    name: props.flight.departureAirport.name? props.flight.departureAirport.name.toUpperCase():"",
+    city: props.flight.departureAirport.city?props.flight.departureAirport.city.toUpperCase():"",
+    country: props.flight.departureAirport.country?props.flight.departureAirport.country.toUpperCase():"",
+    timeScheduled: props.flight.departureTimeScheduled?props.flight.departureTimeScheduled:"",
     date: d.toDateString(),
   };
 

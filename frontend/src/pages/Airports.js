@@ -9,7 +9,6 @@ function Airports() {
   const { loading, error, data } = useQuery(getAirports, {variables:{search:'south africa'},});
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
 
   return (
     <div className="container">

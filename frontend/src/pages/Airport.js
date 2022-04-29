@@ -22,30 +22,32 @@ function Airport() {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
 
-  const dep = Object.keys(data.flights).reduce(function (dep, key) {
-    if (data.flights[key].departure.airport.icaoCode === id) {
-      dep[key] = data.flights[key];
-    }
-    return dep;
-  }, {});
+  const dep =
+    data && data.flights
+      ? Object.keys(data.flights).reduce(function (dep, key) {
+          if (data.flights[key].departureAirport.icaoCode === id) {
+            dep[key] = data.flights[key];
+          }
+          return dep;
+        }, {})
+      : {};
 
-  const arr = Object.keys(data.flights).reduce(function (arr, key) {
-    if (data.flights[key].arrival.airport.icaoCode === id) {
-      arr[key] = data.flights[key];
-    }
-    return arr;
-  }, {});
+  const arr = data && data.flights
+    ? Object.keys(data.flights).reduce(function (arr, key) {
+        if (data.flights[key].arrivalAirport.icaoCode === id) {
+          arr[key] = data.flights[key];
+        }
+        return arr;
+      }, {})
+    : {};
 
   return (
     <div className="container">
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <Link to={"/"}>
-              Airports
-            </Link>
+            <Link to={"/"}>Airports</Link>
           </li>
           <li className="breadcrumb-item active">{location.state.airport}</li>
         </ol>
