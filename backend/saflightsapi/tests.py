@@ -5,46 +5,56 @@ from graphene_django.utils.testing import GraphQLTestCase
 
 class SAFlightsApiTestCase(GraphQLTestCase):
 
-    def setUp(self):
-        Airport.objects.create(
-            iata_code ='MQP', 
-            name ='Kruger Mpumalanga International Airport', 
-            municipality ='Mpumalanga',
-            latitude_deg = '-25.38319969',
-            longitude_deg =	'31.10560036',
-            elevation = '2829',
-            image_url = "https://imgbox.com/rC5HhVTD"
-        )
-        
-
-    def test_airports_query(self):
-        response = self.query(
-            '''
-            query {
-                airports{
-                    name,municipality,iataCode,latitudeDeg,longitudeDeg,elevation,imageUrl
-                }
-            }
-            ''',
-            op_name = 'airports'
-        )
-
-        content = json.loads(response.content)
-        self.assertResponseNoErrors(response)
+    fixtures = ["test_airports_fixture.json", "test_flights_fixture.json"]
+    GRAPHQL_URL = '/graphql'
 
     def test_airport_query(self):
+        response = self.query('''query Airports($search: String) {airports(search: $search){ name iataCode icaoCode imageUrl}}''',variables={'search': 'fact'})
+        content = json.loads(response.content)
+        self.assertEqual(content, {'data':{'airports':[{'name':'Cape Town International Airport','iataCode':'CPT', 'icaoCode':'FACT','imageUrl':'https://thumbs2.imgbox.com/6b/65/hln93WAv_t.jpeg'}]}}, 'Response has correct data')
+
+    
+    def test_flight_search_query(self):
         response = self.query(
             '''
-            query {
-                airport{
-                    name,municipality,iataCode,latitudeDeg,longitudeDeg,elevation,imageUrl
+            query Flights($search: String){
+                flights(search: $search){
+                    number
+                    iataCode
+                    icaoCode
+                    date
+                    status
+                    airline
+                    arrivalGate
+                    arrivalBaggage
+                    arrivalTerminal
+                    arrivalTimeDelay
+                    arrivalTimeScheduled
+                    departureGate
+                    departureBaggage
+                    departureTerminal
+                    departureTimeDelay
+                    departureTimeScheduled
+                    departureAirport{
+                        name
+                        icaoCode
+                        iataCode
+                        latitudeDeg
+                        elevation
+                        imageUrl
+                    }
+                    arrivalAirport{
+                        name
+                        icaoCode
+                        iataCode
+                        latitudeDeg
+                        elevation
+                        imageUrl
+                    }
                 }
             }
             ''',
-            op_name='airport',
-            variables={'iataCode': 'MQP'}
+            variables={'search': 'FABL'}
         )
-
         content = json.loads(response.content)
-
-        self.assertResponseNoErrors(response)
+        self.assertEqual(content['data'], {'flights': [{'number': '600', 'iataCode': '4Z600', 'icaoCode': 'LNK600', 'date': '2022-04-29', 'status': 'landed', 'airline': 'South African Airlink', 'arrivalGate': None, 'arrivalBaggage': None, 'arrivalTerminal': 'B', 'arrivalTimeDelay': None, 'arrivalTimeScheduled': '09:35:00', 'departureGate': 'A10', 'departureBaggage': None, 'departureTerminal': None, 'departureTimeDelay': 14, 'departureTimeScheduled': '08:00:00', 'departureAirport': {'name': 'Cape Town International Airport', 'icaoCode': 'FACT', 'iataCode': 'CPT', 'latitudeDeg': -33.96480179, 'elevation': 151, 'imageUrl': 'https://thumbs2.imgbox.com/6b/65/hln93WAv_t.jpeg'}, 'arrivalAirport': {'name': 'Bram Fischer International Airport', 'icaoCode': 'FABL', 'iataCode': 'BFN', 'latitudeDeg': -29.092699, 'elevation': 4457, 'imageUrl': 'https://thumbs2.imgbox.com/33/1a/4TcUIR16_t.jpeg'}}]}, 'Response has correct data')

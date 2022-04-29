@@ -1,0 +1,28 @@
+[
+{
+    "model": "saflightsapi.flight",
+    "pk": 1,
+    "fields": {
+        "number": "600",
+        "iata_code": "4Z600",
+        "icao_code": "LNK600",
+        "date": "2022-04-29",
+        "status": "landed",
+        "airline": "South African Airlink",
+        "departure_airport": 2,
+        "departure_terminal": null,
+        "departure_gate": "A10",
+        "departure_baggage": null,
+        "departure_time_delay": 14,
+        "departure_time_scheduled": "08:00:00",
+        "departure_time_actual": "08:13:00",
+        "arrival_airport": 1,
+        "arrival_terminal": "B",
+        "arrival_gate": null,
+        "arrival_baggage": null,
+        "arrival_time_delay": null,
+        "arrival_time_scheduled": "09:35:00",
+        "arrival_time_actual": "09:23:00"
+    }
+}
+]

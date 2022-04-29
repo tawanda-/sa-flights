@@ -1,0 +1,257 @@
+[
+{
+    "model": "saflightsapi.airport",
+    "pk": 1,
+    "fields": {
+        "icao_code": "FABL",
+        "iata_code": "BFN",
+        "name": "Bram Fischer International Airport",
+        "city": "Bloemfontain",
+        "country": "south africa",
+        "latitude_deg": -29.092699,
+        "longitude_deg": 26.302401,
+        "elevation": 4457,
+        "image_url": "https://thumbs2.imgbox.com/33/1a/4TcUIR16_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 2,
+    "fields": {
+        "icao_code": "FACT",
+        "iata_code": "CPT",
+        "name": "Cape Town International Airport",
+        "city": "Cape Town",
+        "country": "south africa",
+        "latitude_deg": -33.96480179,
+        "longitude_deg": 18.60169983,
+        "elevation": 151,
+        "image_url": "https://thumbs2.imgbox.com/6b/65/hln93WAv_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 3,
+    "fields": {
+        "icao_code": "FALE",
+        "iata_code": "DUR",
+        "name": "King Shaka International Airport",
+        "city": "Durban",
+        "country": "south africa",
+        "latitude_deg": -29.61444444,
+        "longitude_deg": 31.11972222,
+        "elevation": 295,
+        "image_url": "https://thumbs2.imgbox.com/b6/45/ebKoSqcs_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 4,
+    "fields": {
+        "icao_code": "FAEL",
+        "iata_code": "ELS",
+        "name": "Ben Schoeman Airport",
+        "city": "East London",
+        "country": "south africa",
+        "latitude_deg": -33.03559875,
+        "longitude_deg": 27.82589912,
+        "elevation": 435,
+        "image_url": "https://thumbs2.imgbox.com/4f/19/kVPTs1XW_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 5,
+    "fields": {
+        "icao_code": "FAGG",
+        "iata_code": "GRJ",
+        "name": "George Airport",
+        "city": "George",
+        "country": "south africa",
+        "latitude_deg": -34.0056,
+        "longitude_deg": 22.378902,
+        "elevation": 648,
+        "image_url": "https://thumbs2.imgbox.com/69/d3/lawf2Z7O_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 6,
+    "fields": {
+        "icao_code": "FALA",
+        "iata_code": "HLA",
+        "name": "Lanseria International Airport",
+        "city": "Johannesburg",
+        "country": "south africa",
+        "latitude_deg": -25.938499,
+        "longitude_deg": 27.9261,
+        "elevation": 4517,
+        "image_url": "https://thumbs2.imgbox.com/d2/52/ednR7RQz_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 7,
+    "fields": {
+        "icao_code": "FAOR",
+        "iata_code": "JNB",
+        "name": "OR Tambo International Airport",
+        "city": "Johannesburg",
+        "country": "south africa",
+        "latitude_deg": -26.1392,
+        "longitude_deg": 28.246,
+        "elevation": 5558,
+        "image_url": "https://thumbs2.imgbox.com/01/4c/mrFl0R46_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 8,
+    "fields": {
+        "icao_code": "FAKM",
+        "iata_code": "KIM",
+        "name": "Kimberley Airport",
+        "city": "Kimberley",
+        "country": "south africa",
+        "latitude_deg": -28.80279922,
+        "longitude_deg": 24.76519966,
+        "elevation": 3950,
+        "image_url": "https://thumbs2.imgbox.com/b3/bb/3cd50czG_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 9,
+    "fields": {
+        "icao_code": "FAMM",
+        "iata_code": "MBD",
+        "name": "Mmabatho International Airport",
+        "city": "Mafeking",
+        "country": "south africa",
+        "latitude_deg": -25.79840088,
+        "longitude_deg": 25.54800034,
+        "elevation": 4181,
+        "image_url": "https://thumbs2.imgbox.com/bc/3b/EolPGDVC_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 10,
+    "fields": {
+        "icao_code": "FAMG",
+        "iata_code": "MGH",
+        "name": "Margate Airport",
+        "city": "Margate",
+        "country": "south africa",
+        "latitude_deg": -30.85740089,
+        "longitude_deg": 30.34300041,
+        "elevation": 495,
+        "image_url": "https://thumbs2.imgbox.com/f9/10/f0OR0gmx_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 11,
+    "fields": {
+        "icao_code": "FAKN",
+        "iata_code": "MQP",
+        "name": "Kruger Mpumalanga International Airport",
+        "city": "Mpumalanga",
+        "country": "south africa",
+        "latitude_deg": -25.38319969,
+        "longitude_deg": 31.10560036,
+        "elevation": 2829,
+        "image_url": "https://thumbs2.imgbox.com/13/a8/iPJeLvHS_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 12,
+    "fields": {
+        "icao_code": "FAPH",
+        "iata_code": "PHW",
+        "name": "Hendrik Van Eck Airport",
+        "city": "Phalaborwa",
+        "country": "south africa",
+        "latitude_deg": -23.93720055,
+        "longitude_deg": 31.15539932,
+        "elevation": 1432,
+        "image_url": "https://thumbs2.imgbox.com/88/df/2i3D8RWk_t.png"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 13,
+    "fields": {
+        "icao_code": "FAPE",
+        "iata_code": "PLZ",
+        "name": "Chief Dawid Stuurman International Airport",
+        "city": "Port Elizabeth",
+        "country": "south africa",
+        "latitude_deg": -33.984901,
+        "longitude_deg": 25.6173,
+        "elevation": 226,
+        "image_url": "https://thumbs2.imgbox.com/f0/c5/iwqtI2I6_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 13,
+    "fields": {
+        "icao_code": "FAPP",
+        "iata_code": "PTG",
+        "name": "Polokwane International Airport",
+        "city": "Polokwane",
+        "country": "south africa",
+        "latitude_deg": -23.845269,
+        "longitude_deg": 29.458615,
+        "elevation": 4076,
+        "image_url": "https://thumbs2.imgbox.com/52/2f/BGszPpTk_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 14,
+    "fields": {
+        "icao_code": "FARB",
+        "iata_code": "RCB",
+        "name": "Richards Bay Airport",
+        "city": "Richards Bay",
+        "country": "south africa",
+        "latitude_deg": -28.74099922,
+        "longitude_deg": 32.09209824,
+        "elevation": 109,
+        "image_url": "https://thumbs2.imgbox.com/51/66/n8osFWp4_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 15,
+    "fields": {
+        "icao_code": "FAUP",
+        "iata_code": "UTN",
+        "name": "Pierre Van Ryneveld Airport",
+        "city": "Upington",
+        "country": "south africa",
+        "latitude_deg": -28.39909935,
+        "longitude_deg": 21.2602005,
+        "elevation": 2782,
+        "image_url": "https://thumbs2.imgbox.com/35/43/WAzjzSTR_t.jpeg"
+    }
+},
+{
+    "model": "saflightsapi.airport",
+    "pk": 15,
+    "fields": {
+        "icao_code": "FAUT",
+        "iata_code": "UTT",
+        "name": "K. D. Matanzima Airport",
+        "city": "Mthatha",
+        "country": "south africa",
+        "latitude_deg": -31.54636318,
+        "longitude_deg": 28.6733551,
+        "elevation": 2400,
+        "image_url": "https://thumbs2.imgbox.com/95/f7/FIJyPoAQ_t.jpeg"
+    }
+}
+]

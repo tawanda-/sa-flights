@@ -42,7 +42,6 @@ def saveData(flights):
                 arrival_time_scheduled = formatDate(flight['arrival']['scheduled']),
                 arrival_time_actual = formatDate(flight['arrival']['actual']),
             )
-            print(flght)
             flght.save()
 
         except Exception as er:
