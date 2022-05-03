@@ -1,16 +1,21 @@
-<p align="center"><img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.jpeg" alt="logo" width=22.5% /> <span style="font-weight: 300; line-height: 1.2;font-size: 2em;">SA Flight Tracker</span></p>
+<p align="center" style="font-weight: 300;font-size: 5em;"><img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.jpeg" alt="logo" width=20%/>SA Flight Tracker</p>
 
-![Django](https://img.shields.io/badge/django-v3.2.12+-green)
-![React](https://img.shields.io/badge/react-v17.0.2+-blue.svg)
-
-SA Flights Tracker is a website to monitor flights flying into and out of 21 airports in South Africa
-
-<p>
-	<a href="#features">Features</a> •
-  <a href="#tech">Tech</a> •
-  <a href="#Installation">Installation</a> •
-  <a href="#License">License</a> •
+<p align="center">
+	<img src="https://img.shields.io/badge/django-v3.2.12+-green" alt="django" />
+	<img src="https://img.shields.io/badge/react-v17.0.2+-blue.svg" alt="react" />
 </p>
+
+<p align="center">
+	SA Flights Tracker is a website to monitor flights flying into and out of 21 airports in South Africa
+</p>
+
+<p align="center">
+	<a href="#features">Features</a> •
+	<a href="#tech">Tech</a> •
+	<a href="#installation">Installation</a> •
+	<a href="#license">License</a> •
+</p>
+
 ## Features
 
 - View real time flight data as well as historical(24 hours) data for a given airport.
@@ -25,19 +30,17 @@ SA Flights Tracker is a website to monitor flights flying into and out of 21 air
 
 - Admin panel to manage data
 
-  
-
 ## Tech
 
 SA Flight Tracker is comprised of a backend server that stores the flight data and a website for displaying the data.
 
 ### Backend
 
-[Django](https://www.djangoproject.com/) For content management through Admin panel.
+[Django](https://www.djangoproject.com/) For content management through Admin panel that is data quering, storage and presentation to client via the SAFlightsApi.
 
 [Django-Graphene](https://docs.graphene-python.org/projects/django/en/latest/) Used to create Graphql front facing api
 
-[AviationStack](https://aviationstack.com/) Provided flight data. After a user requests flight data, if the data is not available in the app, Django requests the data from Aviationstack and stores the data.
+[AviationStack](https://aviationstack.com/) Provided flight data. After a user requests flight data, if the data is not available in the app, Django requests the data from Aviationstack and stores the data. The aviationstack api has a quota of 100 calls
 
 ### FrontEnd
 
@@ -49,15 +52,14 @@ SA Flight Tracker is comprised of a backend server that stores the flight data a
 
 ### Api
 
-The api is accesible using the following link 
+The SAflightsapi is accesible using the following link 
 
 ```
 {url}/graphql
 ```
 
-. 
-
 ## Installation
+
 
 ### From Source
 
@@ -104,7 +106,7 @@ To test the server you can go to:
 - [Admin panel](127.0.0.1/admin) enter the superuser username and password.
 - [GraphQL API](127.0.0.1/grapqhl) to test the api
 
-## Testing
+### Testing
 
 To test backend source code, in the backend folder type the following command into your terminal
 
