@@ -1,4 +1,7 @@
-<p align="center" style="font-weight: 300;font-size: 5em;"><img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.jpeg" alt="logo" width=20%/>SA Flight Tracker</p>
+<p align="center">
+	<img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.jpeg" alt="logo" width=10%/>
+	<h2 align="center">SA Flight Tracker</h2>
+</p>
 
 <p align="center">
 	<img src="https://img.shields.io/badge/django-v3.2.12+-green" alt="django" />
