@@ -4,3 +4,4 @@ backend/myproject/__pycache__
 backend/saflightsapi/__pycache__
 backend/saflightsapi/migrations/__pycache__
 backend/__pycache__
+fact_data.json
