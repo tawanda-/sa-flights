@@ -6,7 +6,7 @@ class Airport(models.Model):
     class Meta:
        ordering = ['name']
 
-    icao_code = models.CharField(max_length=25, blank=True, null=True)
+    icao_code = models.CharField(max_length=25, blank=True, null=True, unique=True)
     iata_code = models.CharField(max_length=25, blank=True, null=True)
     name = models.CharField(max_length=250, blank=True, null=True)
     city = models.CharField(max_length=250, blank=True, null=True)

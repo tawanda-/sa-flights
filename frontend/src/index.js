@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import logo from "./logo.jpeg";
+import logo from "./logo.svg";
 import Search from "./components/Search";
 
 const client = new ApolloClient({
