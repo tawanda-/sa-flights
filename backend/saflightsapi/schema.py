@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Aircraft, Airport, Flight
-from .service import getFlightsFromAirport, getFlightsToAirport
+from .tasks import airportFlights
 from django.db.models import Q, Count, Avg, Max, Min
 
 class AirportType(DjangoObjectType):
@@ -145,8 +145,9 @@ class Query(graphene.ObjectType):
                 airports = sa_airports.filter(airport_query)
                 flights = Flight.objects.filter(departure_airport__in=airports) | Flight.objects.filter(arrival_airport__in=airports)
                 if flights.count() == 0 and airports.values().count() != 0:
-                    getFlightsFromAirport(airports.values()[0]['icao_code'])
-                    getFlightsToAirport(airports.values()[0]['icao_code'])
+                    airportFlights.delay(airports.values()[0]['icao_code'], "DEPARTURE")
+                    airportFlights.delay(airports.values()[0]['icao_code'], "ARRIVAL")
+            print(flights)
             return flights
         elif searchone and searchtwo:
             airport_query = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(city__icontains=searchone) | Q(country__icontains=searchone) | Q(name__icontains=searchone)
