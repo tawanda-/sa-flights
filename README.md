@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.jpeg" alt="logo" width=10%/>
+	<img src="https://github.com/tawanda-/sa-flights/blob/master/frontend/src/logo.svg" alt="logo" width=10%/>
 	<h2 align="center">SA Flight Tracker</h2>
 </p>
 
