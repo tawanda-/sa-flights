@@ -1,6 +1,12 @@
 version: "3.9"
 
 services:
+    rabbitmq:
+        image: rabbitmq:3
+        ports:
+            - 5672:5672
+            - 15672:15672
+        container_name: "rabbitmq"
     backend:
         build:
             context: backend
@@ -10,7 +16,11 @@ services:
             python manage.py loaddata aircrafts.json &&
             python manage.py runserver 0.0.0.0:8000"
         ports: 
-          - '8000:8000'
+            - '8000:8000'
+        depends_on:
+            - rabbitmq
+        environment:
+            - CELERY_BROKER=amqp://guest:guest@0.0.0.1:5672//
         container_name: SAFlightAPI
     frontend:
         stdin_open: true
@@ -22,4 +32,11 @@ services:
         ports:
             - '3000:3000'
         container_name: SAFlightSPA
-        
+    celery:
+        build:
+            context: backend
+        command: celery -A myproject worker -l info
+        depends_on:
+            - rabbitmq
+        environment:
+            rabbitmq_uri: amqp://guest:guest@0.0.0.1:5672
