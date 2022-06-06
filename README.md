@@ -124,6 +124,8 @@ The following commands will clone the repo and initialise the docker container
 
 ```
 git clone https://github.com/tawanda-/sa-flights
+```
+```
 cd sa-flights
 In myproject/settings update the AIRLABS_KEY with your key.
 docker-compose up
