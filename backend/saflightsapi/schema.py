@@ -147,7 +147,6 @@ class Query(graphene.ObjectType):
                 if flights.count() == 0 and airports.values().count() != 0:
                     airportFlights.delay(airports.values()[0]['icao_code'], "DEPARTURE")
                     airportFlights.delay(airports.values()[0]['icao_code'], "ARRIVAL")
-            print(flights)
             return flights
         elif searchone and searchtwo:
             airport_query = Q(iata_code=searchone) | Q(icao_code__icontains=searchone) | Q(city__icontains=searchone) | Q(country__icontains=searchone) | Q(name__icontains=searchone)

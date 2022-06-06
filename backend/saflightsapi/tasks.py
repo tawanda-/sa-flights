@@ -5,7 +5,7 @@ from django.db import transaction
 from .models import Airport, Flight
 from celery import shared_task
 
-key=settings.AVIATIONSTACK_KEY
+key=settings.AIRLABS_KEY
 
 @shared_task
 def airportFlights(airport_icao, movement):
@@ -91,14 +91,12 @@ def saveResponse(flights):
                 departure_airport = dep,
                 departure_terminal = flight.get('dep_terminal'),
                 departure_gate = flight.get('dep_gate'),
-                #departure_time_delay = flight.get('departure').get('delay'),
                 departure_time_scheduled = flight.get('dep_time').split()[1],
                 departure_time_actual = flight.get('arr_time').split()[1] if not flight.get('dep_estimated') else flight.get('dep_estimated').split()[1],
 
                 arrival_airport = arr,
                 arrival_terminal = flight.get('arr_terminal'),
                 arrival_gate = flight.get('arr_gate'),
-                #arrival_time_delay = flight.get('arrival').get('delay'),
                 arrival_time_scheduled = flight.get('arr_time').split()[1],
                 arrival_time_actual = flight.get('arr_time').split()[1] if not flight.get('arr_estimated') else flight.get('arr_estimated').split()[1],
             )

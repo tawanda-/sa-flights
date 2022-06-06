@@ -62,13 +62,24 @@ The SAflightsapi is accesible using the following link
 ## Installation
 
 
+### Airlabs Api Key
+
+The appplication uses airlabs.co as the source of flight data.
+To get the api key go to the [sign up](https://airlabs.co/signup) page, fill in the details save the key it will be used by the backend to request flight data.
+
 ### From Source
 
 #### Backend
 
+##### RabbitQM
+
+[download](https://www.rabbitmq.com/download.html) and install rabbitqm
+
+##### Django
+
 [Python 3+] is required to run the application and its best to create a venv for the application.
 
-Clone the repo and activate a python vrtual environment
+Clone the repo and activate a python virtual environment
 
 ```
 git clone https://github.com/tawanda-/sa-flights
@@ -86,19 +97,24 @@ cd backend
 pip install -r requirements.txt 
 ```
 
-After all the packages have been installed, we need to setup Django. The following command will run migrations, load initial data into the database, create a superuser and then start the server
+##### Django Setup
+
+In myproject/settings update the AIRLABS_KEY with your key.
+
+After all the packages have been installed, we need to setup Django. The following command will run migrations, load initial data into the database, create a superuser, start celery and also start Django test server
 
 ```
 ./setup.sh
 ```
 
-### Docker
+### Using Docker
 
 - The following commands will clone the repo and initialise the docker container
 
   ```
   git clone https://github.com/tawanda-/sa-flights
   cd sa-flights
+  In myproject/settings update the AIRLABS_KEY with your key.
   docker-compose up
   ```
 
