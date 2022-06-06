@@ -29,13 +29,11 @@
   - ICAO, IATA flight or airport number,
   - Departure city and/or Arrival City
 
-- View statistical flight data for the different airports
-
 - Admin panel to manage data
 
 ## Tech
 
-SA Flight Tracker is comprised of a backend server that stores the flight data and a website for displaying the data.
+SA Flight Tracker is comprised of a Django backend server that stores the flight data and a react website for displaying the data.
 
 ### Backend
 
