@@ -106,6 +106,14 @@ After all the packages have been installed, we need to setup Django. The followi
 ./setup.sh
 ```
 
+##### Testing
+
+To test backend source code, in the backend folder type the following command into your terminal
+
+```
+python manage.py test saflightsapi.tests
+```
+
 #### 2. Frontend
 
 In terminal run the following commands
@@ -134,14 +142,6 @@ To test the server you can go to:
 - Admin panel 127.0.0.1:8000/admin enter the superuser username and password.
 - GraphQL API 127.0.0.1:8000/grapqhl to test the api
 - Website 127.0.0.1:3000 to view the website
-
-### Testing
-
-To test backend source code, in the backend folder type the following command into your terminal
-
-```
-python manage.py test saflightsapi.tests
-```
 
 ## License
 
