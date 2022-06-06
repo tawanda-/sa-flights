@@ -51,14 +51,6 @@ SA Flight Tracker is comprised of a Django backend server that stores the flight
 
 [Bootstrap](https://getbootstrap.com/) Make the website look pretty
 
-### Api
-
-The SAflightsapi is accesible using the following link 
-
-```
-{url}/graphql
-```
-
 ## Installation
 
 ### Airlabs Api Key
