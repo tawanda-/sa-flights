@@ -80,8 +80,8 @@ cd sa-flights
 ```
 ```
 python3 -m venv env
-````
-````
+```
+```
 source env/bin/activate
 ```
 
