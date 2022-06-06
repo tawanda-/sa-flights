@@ -68,7 +68,7 @@ To get the api key go to the [sign up](https://airlabs.co/signup) page, fill in 
 
 ### From Source
 
-#### Backend
+#### 1. Backend
 
 ##### RabbitQM
 
@@ -105,6 +105,18 @@ After all the packages have been installed, we need to setup Django. The followi
 ```
 ./setup.sh
 ```
+
+#### 2. Frontend
+
+In terminal run the following commands
+
+```
+cd frontend
+npm install
+npm start
+```
+
+In browser enter 127.0.0.1:3000 to view website.
 
 ### Using Docker
 
