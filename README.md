@@ -61,7 +61,6 @@ The SAflightsapi is accesible using the following link
 
 ## Installation
 
-
 ### Airlabs Api Key
 
 The appplication uses airlabs.co as the source of flight data.
@@ -109,14 +108,14 @@ After all the packages have been installed, we need to setup Django. The followi
 
 ### Using Docker
 
-- The following commands will clone the repo and initialise the docker container
+The following commands will clone the repo and initialise the docker container
 
-  ```
-  git clone https://github.com/tawanda-/sa-flights
-  cd sa-flights
-  In myproject/settings update the AIRLABS_KEY with your key.
-  docker-compose up
-  ```
+```
+git clone https://github.com/tawanda-/sa-flights
+cd sa-flights
+In myproject/settings update the AIRLABS_KEY with your key.
+docker-compose up
+```
 
 To test the server you can go to:
 
