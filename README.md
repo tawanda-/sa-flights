@@ -131,8 +131,9 @@ docker-compose up
 
 To test the server you can go to:
 
-- [Admin panel](127.0.0.1/admin) enter the superuser username and password.
-- [GraphQL API](127.0.0.1/grapqhl) to test the api
+- Admin panel 127.0.0.1:8000/admin enter the superuser username and password.
+- GraphQL API 127.0.0.1:8000/grapqhl to test the api
+- Website 127.0.0.1:3000 to view the website
 
 ### Testing
 
