@@ -74,8 +74,14 @@ Clone the repo and activate a python virtual environment
 
 ```
 git clone https://github.com/tawanda-/sa-flights
+```
+```
 cd sa-flights
+```
+```
 python3 -m venv env
+````
+````
 source env/bin/activate
 ```
 
@@ -85,6 +91,8 @@ The following commands will install the required packages
 
 ```
 cd backend
+```
+```
 pip install -r requirements.txt 
 ```
 
@@ -112,7 +120,11 @@ In terminal run the following commands
 
 ```
 cd frontend
+```
+```
 npm install
+```
+```
 npm start
 ```
 
@@ -127,7 +139,11 @@ git clone https://github.com/tawanda-/sa-flights
 ```
 ```
 cd sa-flights
+```
+
 In myproject/settings update the AIRLABS_KEY with your key.
+
+```
 docker-compose up
 ```
 
