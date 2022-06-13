@@ -16,7 +16,7 @@ from pathlib import Path
 
 CELERY_BROKER_URL = 'amqp://guest:guest@0.0.0.1:5672'
 
-AIRLABS_KEY = '93476355-01d5-44fd-848b-4a75cb43f051'
+AIRLABS_KEY = ''
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
