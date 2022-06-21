@@ -41,8 +41,6 @@ SA Flight Tracker is comprised of a Django backend server that stores the flight
 
 [Django-Graphene](https://docs.graphene-python.org/projects/django/en/latest/) Used to create Graphql front facing api
 
-[AviationStack](https://aviationstack.com/) Provided flight data. After a user requests flight data, if the data is not available in the app, Django requests the data from Aviationstack and stores the data. The aviationstack api has a quota of 100 calls
-
 ### FrontEnd
 
 [React](https://reactjs.org/) Used to create the single page application.
